@@ -5,8 +5,13 @@ function generatePassword(){
   var passwordLength= prompt("Enter password length (8-128 characters)", "Enter password length");
   if (passwordLength < 8){
     alert("Password must be at least 8 characters in length.");
+    generatePassword();
   } else if (passwordLength > 128){
     alert("Password length can be no longer than 128 characters.");
+    generatePassword();
+  } else if (isNaN(passwordLength)){
+    alert("Must enter a numeric value for password length");
+    generatePassword();
   } else {
     alert("Great, thank you!");
   }
@@ -20,42 +25,44 @@ function generatePassword(){
   //special char t/f
   var specialChar= confirm("Do you wish to include special characters?");
 
-  var characterBank;
+  if(!(lowercaseChar || uppercaseChar || numericChar || specialChar)){
+    alert("Must include at least one type of character.");
+    generatePassword();
+  }
+
+  //create pw character bank based on answers
+  var characterBank= [];
 
   if (lowercaseChar){
-    characterBank=['a','b','c','d','e','f','g','h','i','j','k','l','m',
-    'n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    characterBank= characterBank.concat(['a','b','c','d','e','f','g','h','i','j','k','l','m',
+    'n','o','p','q','r','s','t','u','v','w','x','y','z']);
   } 
   
   if (uppercaseChar){
-    characterBank= characterBank + ['A','B','C','D',
+    characterBank= characterBank.concat(['A','B','C','D',
     'E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U',
-    'V','W','X','Y','Z'];
+    'V','W','X','Y','Z']);
   }
 
   if (numericChar){
-    characterBank= characterBank + ['0','1','2','3','4','5','6','7','8','9'];
+    characterBank= characterBank.concat(['0','1','2','3','4','5','6','7','8','9']);
   }
 
   if (specialChar){
-    characterBank= characterBank + ['!','"','#','$','%','&',')','*','+','-',
-    '.','/',':',';','<','=','>','?','@','[','^','_','`','{','|','}','~'];
+    characterBank= characterBank.concat(['!','"','#','$','%','&',')','*','+','-',
+    '.','/',':',';','<','=','>','?','@','[','^','_','`','{','|','}','~']);
   }
 
-  /*else if (lowercaseChar && uppercaseChar) {
-    characterBank=['a','b','c','d','e','f','g','h','i','j','k','l','m',
-    'n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D',
-    'E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U',
-    'V','W','X','Y','Z'];
-  }*/
   console.log(characterBank);
   
-
-
-
-  //create pw character bank based on answers
   //generate random pw w loop for length
-  //display pw
+  var randomPassword= " ";
+  for (var i = 0; i < passwordLength; i++){
+    randomPassword= randomPassword + characterBank[Math.floor(Math.random()*characterBank.length)];
+  }
+
+  //return pw
+  return randomPassword;
 }
 
 // Get references to the #generate element
