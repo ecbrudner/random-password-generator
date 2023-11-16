@@ -2,7 +2,7 @@
 
 ![Random_Password_Generator](https://github.com/ecbrudner/random-password-generator/assets/148579054/b58cc4fb-7662-4493-b73f-9041ca3dff07)
 
-
+https://ecbrudner.github.io/random-password-generator/
 
 ## Description
 
